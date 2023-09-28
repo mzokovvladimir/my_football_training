@@ -2,19 +2,19 @@ import pygame
 
 pygame.init()
 
-back = (180, 185, 205)
+back: tuple = (180, 185, 205)
 mw = pygame.display.set_mode((500, 500))
 mw.fill(back)
 pygame.display.set_caption("My_football_training=)")
 clock = pygame.time.Clock()
-dx = 3
-dy = 3
+dx: int = 3
+dy: int = 3
 
-platform_x = 200
-platform_y = 330
-move_right = False
-move_left = False
-game_over = False
+platform_x: int = 200
+platform_y: int = 330
+move_right: bool = False
+move_left: bool = False
+game_over: bool = False
 
 
 class Area:
@@ -24,13 +24,13 @@ class Area:
         if color:
             self.fill_color = color
 
-    def color(self, new_color):
+    def color(self, new_color: str):
         self.fill_color = new_color
 
     def fill(self):
         pygame.draw.rect(mw, self.fill_color, self.rect)
 
-    def collidepoint(self, x, y):
+    def collidepoint(self, x: int, y: int):
         return self.rect.collidepoint(x, y)
 
     def colliderect(self, rect):
@@ -38,16 +38,16 @@ class Area:
 
 
 class Label(Area):
-    def set_text(self, text, fsize=12, text_color=(0, 0, 0)):
+    def set_text(self, text: str, fsize: int=12, text_color: tuple=(0, 0, 0)):
         self.image = pygame.font.SysFont('verdana', fsize).render(text, True, text_color)
 
-    def draw(self, shift_x=0, shift_y=0):
+    def draw(self, shift_x: int=0, shift_y: int=0):
         self.fill()
         mw.blit(self.image, (self.rect.x + shift_x, self.rect.y + shift_y))
 
 
 class Picture(Area):
-    def __init__(self, filename, x=0, y=0, width=10, height=10):
+    def __init__(self, filename: str, x: int=0, y: int=0, width: int=10, height: int=10):
         Area.__init__(self, x=x, y=y, width=width, height=height, color=None)
         self.image = pygame.image.load(filename)
 
@@ -57,11 +57,11 @@ class Picture(Area):
 
 ball = Picture('ball.png', 160, 200, 50, 50)
 platform = Picture('platform.png', platform_x, platform_y, 100, 30)
-start_x = 5
-start_y = 5
-count = 9
+start_x: int = 5
+start_y: int = 5
+count: int = 9
 
-balls = []
+balls: list = []
 for j in range(3):
     y = start_y + (55 * j)
     x = start_x + (27.5 * j)
